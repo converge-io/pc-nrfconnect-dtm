@@ -25,6 +25,8 @@ const initialState: SettingsState = {
     length: 37,
     txPower: Math.max(0, Constants.dbmValues.indexOf(0)),
     phy: DTM.DTM_PARAMETER.PHY_LE_1M,
+    ant: DTM.DTM_PARAMETER.FEM_ANT_1,
+    gain: DTM.DTM_PARAMETER.FEM_BYPASS,
     modulationMode: DTM.DTM_PARAMETER.STANDARD_MODULATION_INDEX,
     timeoutms: 0,
 };
@@ -60,6 +62,12 @@ const settingsSlice = createSlice({
         phyChanged(state, action) {
             state.phy = action.payload;
         },
+        antChanged(state, action) {
+            state.ant = action.payload;
+        },
+        gainChanged(state, action) {
+            state.gain = action.payload;
+        },
         modulationChanged(state, action) {
             state.modulationMode = action.payload;
         },
@@ -78,6 +86,8 @@ const {
     lengthChanged,
     timeoutChanged,
     phyChanged,
+    antChanged,
+    gainChanged,
     modulationChanged,
 } = settingsSlice.actions;
 
@@ -89,6 +99,8 @@ const getBitpattern = (state: RootState) => state.app.settings.bitpattern;
 const getLength = (state: RootState) => state.app.settings.length;
 const getTxPower = (state: RootState) => state.app.settings.txPower;
 const getPhy = (state: RootState) => state.app.settings.phy;
+const getAnt = (state: RootState) => state.app.settings.ant;
+const getGain = (state: RootState) => state.app.settings.gain;
 const getModulation = (state: RootState) => state.app.settings.modulationMode;
 const getTimeout = (state: RootState) => state.app.settings.timeoutms;
 
@@ -102,6 +114,8 @@ export {
     lengthChanged,
     timeoutChanged,
     phyChanged,
+    antChanged,
+    gainChanged,
     modulationChanged,
     getChannelMode,
     getSingleChannel,
@@ -111,6 +125,8 @@ export {
     getLength,
     getTxPower,
     getPhy,
+    getAnt,
+    getGain,
     getModulation,
     getTimeout,
 };

@@ -24,6 +24,8 @@ export interface SettingsState {
     length: number;
     txPower: number;
     phy: number;
+    ant: number;
+    gain: number;
     modulationMode: number;
     timeoutms: number;
 }

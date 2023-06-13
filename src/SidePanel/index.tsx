@@ -10,6 +10,7 @@ import { Group, SidePanel } from 'pc-nrfconnect-shared';
 
 import { paneName } from '../utils/panes';
 import ChannelView from './ChannelView';
+import { FemAntView, FemGainView } from './FemView';
 import PacketView from './PacketView';
 import PhyTypeView from './PhyTypeView';
 import RunTestView from './RunTestView';
@@ -30,6 +31,8 @@ const AppSidePanelView = () => {
                 {selectedTestMode === 'transmitter' && <TransmitSetupView />}
                 <PhyTypeView />
                 {selectedTestMode === 'transmitter' && <PacketView />}
+                <FemAntView />
+                <FemGainView />
                 <TimeoutView />
             </Group>
             <RunTestView />

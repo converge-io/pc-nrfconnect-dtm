@@ -6,7 +6,7 @@
     "homepage": "https://github.com/NordicSemiconductor/pc-nrfconnect-dtm",
     "repository": {
         "type": "git",
-        "url": "https://github.com/NordicSemiconductor/pc-nrfconnect-dtm.git"
+        "url": "https://github.com/converge-io/pc-nrfconnect-dtm.git"
     },
     "author": "Nordic Semiconductor ASA",
     "license": "SEE LICENSE IN LICENSE",
@@ -30,6 +30,7 @@
         "test": "jest",
         "check": "run-p --silent --continue-on-error --print-label check:*",
         "check:lint": "eslint --color .",
+        "fix": "eslint --color --fix .",
         "check:types": "check-for-typescript tsc --noEmit --pretty",
         "check:license": "nrfconnect-license check",
         "check:app": "check-app-properties",
@@ -41,12 +42,15 @@
         "@types/chart.js": "^2.9.32",
         "chart.js": "^2.9.4",
         "chartjs-plugin-datalabels": "^1.0.0",
-        "nrf-dtm-js": "git+https://github.com/NordicPlayground/nrf-dtm-js#serialport10",
+        "nrf-dtm-js": "git+https://github.com/converge-io/nrf-dtm-js#serialport10",
         "pc-nrfconnect-shared": "github:NordicSemiconductor/pc-nrfconnect-shared#v31",
         "react-chartjs-2": "^2.7.6"
     },
     "eslintConfig": {
         "extends": "./node_modules/pc-nrfconnect-shared/config/eslintrc"
     },
-    "prettier": "./node_modules/pc-nrfconnect-shared/config/prettier.config.js"
+    "prettier": "./node_modules/pc-nrfconnect-shared/config/prettier.config.js",
+    "dependencies": {
+        "npm-run-all": "^4.1.5"
+    }
 }

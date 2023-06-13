@@ -4,15 +4,23 @@
  * SPDX-License-Identifier: LicenseRef-Nordic-4-Clause
  */
 
-import { DTM, DTM_MODULATION_STRING, DTM_PHY_STRING } from 'nrf-dtm-js/src/DTM';
+import {
+    DTM,
+    DTM_FEM_ANT_STRING,
+    DTM_FEM_GAIN_STRING,
+    DTM_MODULATION_STRING,
+    DTM_PHY_STRING,
+} from 'nrf-dtm-js/src/DTM';
 import { logger } from 'pc-nrfconnect-shared';
 
 import { getSerialports, setDeviceReady } from '../reducers/deviceReducer';
 import {
     DTM_CHANNEL_MODE,
+    getAnt,
     getBitpattern,
     getChannelMode,
     getChannelRange,
+    getGain,
     getLength,
     getModulation,
     getPhy,
@@ -76,11 +84,15 @@ async function setupTest({
     length,
     modulationMode,
     phy,
+    ant,
+    gain,
 }: {
     txPower: number;
     length: number;
     modulationMode: number;
     phy: number;
+    ant: number;
+    gain: number;
 }) {
     let res = await dtm.setupReset();
     if (!validateResult(res)) {
@@ -115,6 +127,19 @@ async function setupTest({
         );
     }
 
+    res = await dtm.setupAnt(ant);
+    if (!validateResult(res)) {
+        logger.info(
+            `DTM setup fem ant command failed with parameter ${DTM_FEM_ANT_STRING[ant]}`
+        );
+    }
+
+    res = await dtm.setupGain(gain);
+    if (!validateResult(res)) {
+        logger.info(
+            `DTM setup FEM Gain command failed with parameter ${DTM_FEM_GAIN_STRING[gain]}`
+        );
+    }
     return true;
 }
 
@@ -135,6 +160,8 @@ export function startTests() {
         const txPower = getTxPower(state);
         const modulationMode = getModulation(state);
         const phy = getPhy(state);
+        const ant = getAnt(state);
+        const gain = getGain(state);
 
         const testMode = paneName(getState());
 
@@ -146,6 +173,8 @@ export function startTests() {
             length,
             modulationMode,
             phy,
+            ant,
+            gain,
         });
         if (!setupSuccess) {
             const message =
